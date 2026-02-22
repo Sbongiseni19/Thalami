@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Thalami Civils</title>
+  <!-- Font Awesome 6 (free) for icons (consistent with whole site) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ----- LOADER (identical to other pages) ----- */
+    #page-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0f1a24;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .loader-content {
+      text-align: center;
+      color: white;
+    }
+    .loader-content i {
+      font-size: 4rem;
+      color: #c7a234;
+      margin-bottom: 1rem;
+      animation: spin 1.2s linear infinite;
+    }
+    .loader-content p {
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 4px;
+      margin-top: 10px;
+      color: #e0e7ed;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .loader-hidden {
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
+
+    /* ----- MAIN STYLES (brand consistent) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background-color: #f9fafc;
+      color: #1e2b37;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    /* navigation (exact same) */
+    nav {
+      background: #0f1a24;
+      color: #fff;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      border-bottom: 3px solid #c7a234;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: white;
+      line-height: 1.2;
+    }
+    .logo span {
+      color: #c7a234;
+      font-weight: 300;
+      font-size: 1rem;
+      display: block;
+      letter-spacing: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-links a {
+      color: #f0f3f7;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: 0.2s;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 4px;
+    }
+    .nav-links a:hover {
+      border-bottom-color: #c7a234;
+      color: white;
+    }
+
+    /* hero (services/projects style) */
+    .page-hero {
+      background: linear-gradient(80deg, rgba(0, 20, 30, 0.85), rgba(0, 40, 50, 0.7)), 
+                  url('https://images.unsplash.com/photo-1503387762-592deb58ef4e') center/cover fixed;
+      color: white;
+      padding: 100px 30px;
+      text-align: center;
+      margin: 0;
+      border-radius: 0 0 40px 40px;
+    }
+    .page-hero h1 {
+      font-size: 3.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 15px;
+      text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .page-hero p {
+      font-size: 1.6rem;
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* main container */
+    .contact-wrapper {
+      max-width: 1280px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #0d2b3e;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 90px;
+      height: 4px;
+      background: #c7a234;
+      border-radius: 4px;
+      margin: 12px 0 0;
+    }
+
+    /* contact grid: info + form */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 40px;
+      margin: 50px 0;
+    }
+
+    /* contact info cards (dark but elegant) */
+    .contact-info {
+      background: linear-gradient(135deg, #102630 0%, #15323d 100%);
+      color: white;
+      border-radius: 40px;
+      padding: 45px 35px;
+      box-shadow: 0 20px 35px -10px #001e30;
+    }
+    .contact-info h3 {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      color: white;
+      font-weight: 600;
+    }
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin: 30px 0;
+      font-size: 1.2rem;
+    }
+    .info-item i {
+      font-size: 2rem;
+      color: #c7a234;
+      width: 40px;
+      text-align: center;
+    }
+    .info-item p {
+      color: #e0edf5;
+    }
+    .info-item strong {
+      color: white;
+      font-weight: 600;
+      display: block;
+      font-size: 1.1rem;
+    }
+    .tender-badge {
+      background: #c7a23420;
+      border-left: 5px solid #c7a234;
+      padding: 20px;
+      border-radius: 20px;
+      margin-top: 30px;
+    }
+    .tender-badge i {
+      color: #c7a234;
+      margin-right: 10px;
+    }
+
+    /* form card (white, elevated) */
+    .form-card {
+      background: white;
+      border-radius: 40px;
+      padding: 45px 40px;
+      box-shadow: 0 25px 40px -20px rgba(0,32,64,0.3);
+      border: 1px solid #eef2f6;
+    }
+    .form-card h3 {
+      font-size: 2rem;
+      color: #0d2b3e;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+    .form-group {
+      margin-bottom: 25px;
+    }
+    .form-group label {
+      font-weight: 600;
+      color: #1f4459;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.1rem;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 16px 22px;
+      border: 2px solid #e2eaf0;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-family: inherit;
+      transition: 0.2s;
+      background: #fbfdff;
+    }
+    .form-group textarea {
+      border-radius: 30px;
+      resize: vertical;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: #c7a234;
+      box-shadow: 0 0 0 4px #c7a23420;
+    }
+    .submit-btn {
+      background: #c7a234;
+      border: none;
+      padding: 18px 40px;
+      font-size: 1.4rem;
+      font-weight: 600;
+      border-radius: 60px;
+      color: #0f1a24;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      border: 2px solid transparent;
+      width: 100%;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .submit-btn:hover {
+      background: #dbb957;
+      transform: scale(1.02);
+      box-shadow: 0 10px 20px -5px #00000040;
+    }
+
+    /* extra map / location panel */
+    .location-panel {
+      background: #ecf3f7;
+      border-radius: 40px;
+      padding: 35px 40px;
+      margin: 40px 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .address-block {
+      font-size: 1.2rem;
+    }
+    .address-block i {
+      color: #c7a234;
+      margin-right: 12px;
+      font-size: 1.8rem;
+      vertical-align: middle;
+    }
+    .social-links i {
+      font-size: 2.2rem;
+      margin: 0 12px;
+      color: #2b4a5a;
+      transition: 0.2s;
+    }
+    .social-links i:hover {
+      color: #c7a234;
+      transform: scale(1.1);
+    }
+
+    footer {
+      background: #0b1a21;
+      color: #b0c4d4;
+      text-align: center;
+      padding: 35px 20px;
+      font-size: 1.1rem;
+      border-top: 1px solid #2a4758;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 700px) {
+      nav {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 25px;
+      }
+      .nav-links {
+        gap: 1.2rem;
+      }
+      .page-hero h1 {
+        font-size: 2.5rem;
+      }
+      .form-card, .contact-info {
+        padding: 30px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADER (identical) -->
+  <div id="page-loader">
+    <div class="loader-content">
+      <i class="fas fa-cog"></i>
+      <p>THALAMI CIVILS</p>
+      <div style="font-size:1rem; margin-top: 10px; color:#c7a234;">loading...</div>
+    </div>
+  </div>
+
+  <!-- NAVBAR (same as other pages) -->
+  <nav>
+    <div class="logo">
+      THALAMI CIVILS
+      <span>ENGINEERED EXCELLENCE</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <h1>Contact Us</h1>
+    <p>Partner with Thalami Civils</p>
+  </section>
+
+  <div class="contact-wrapper">
+    <h2 class="section-title">Get in touch</h2>
+
+    <!-- contact grid: left info, right form -->
+    <div class="contact-grid">
+      <!-- left side: contact info (dark) -->
+      <div class="contact-info">
+        <h3><i class="fas fa-comment-dots" style="color:#c7a234; margin-right: 15px;"></i>Let’s talk</h3>
+        
+        <div class="info-item">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <strong>General enquiries</strong>
+            <p>admin@thalami.co.za</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <i class="fas fa-file-signature"></i>
+          <div>
+            <strong>Tenders & proposals</strong>
+            <p>tenders@thalami.co.za</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <i class="fas fa-phone-alt"></i>
+          <div>
+            <strong>Call us</strong>
+            <p>+27 (0) 31 555 8900</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <strong>Head office</strong>
+            <p>Gauteng<br>Petoria, South Africa</p>
+          </div>
+        </div>
+
+        <div class="tender-badge">
+          <i class="fas fa-check-circle"></i> <strong>Preferential procurement</strong> — level 1 BBBEE, CIDB 9CE
+        </div>
+      </div>
+
+      <!-- right side: quote form (white card) -->
+      <div class="form-card">
+        <h3><i class="fas fa-pen" style="color:#c7a234; margin-right: 15px;"></i>Request a quote</h3>
+        <form id="contactForm" onsubmit="event.preventDefault(); alert('Form submitted (demo). In production this would send an email.');">
+          <div class="form-group">
+            <label>Full name *</label>
+            <input type="text" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label>Email address *</label>
+            <input type="email" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label>Phone (optional)</label>
+            <input type="text" placeholder="+27 ...">
+          </div>
+          <div class="form-group">
+            <label>Message / project details *</label>
+            <textarea rows="5" placeholder="Tell us about your project, timeline, or requirements..." required></textarea>
+          </div>
+          <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Send message</button>
+        </form>
+        <p style="margin-top: 20px; font-size: 0.95rem; color: #567a8a;"><i class="fas fa-clock"></i> We aim to respond within 24 working hours.</p>
+      </div>
+    </div>
+
+    <!-- additional location / social block (like about page) -->
+    <div class="location-panel">
+      <div class="address-block">
+        <i class="fas fa-map-marked-alt"></i> 
+        <span><strong>Durban office</strong> — 45 Murchison Street, Berea, 4001</span>
+      </div>
+      <div class="social-links">
+        <i class="fab fa-linkedin"></i>
+        <i class="fab fa-twitter"></i>
+        <i class="fab fa-facebook"></i>
+        <i class="fab fa-instagram"></i>
+      </div>
+    </div>
+
+    <!-- optional small note -->
+    <p style="text-align: center; margin: 20px 0 50px;"><i class="fas fa-hard-hat" style="color:#c7a234;"></i> We serve clients across all provinces — from roads to infrastructure.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Thalami Civils — All Rights Reserved. A black‑owned, level 1 contributor.</p>
+    <p style="margin-top: 15px; font-size: 0.95rem;">
+      <i class="fab fa-linkedin" style="margin: 0 10px; color:#c7a234;"></i>    
+      <i class="fab fa-twitter" style="margin: 0 10px; color:#c7a234;"></i>
+      <i class="fab fa-facebook" style="margin: 0 10px; color:#c7a234;"></i>
+    </p>
+  </footer>
+
+  <!-- loader hide script -->
+  <script>
+    (function() {
+      window.addEventListener('load', function() {
+        const loader = document.getElementById('page-loader');
+        if (loader) {
+          setTimeout(() => {
+            loader.classList.add('loader-hidden');
+          }, 400);
+        }
+      });
+      if (document.readyState === 'complete') {
+        const loader = document.getElementById('page-loader');
+        if (loader) loader.classList.add('loader-hidden');
+      }
+    })();
+  </script>
+</body>
+</html>

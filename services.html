@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services | Thalami Civils</title>
+  <!-- Font Awesome 6 (free) for icons consistent with site -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ----- LOADER (same as homepage & about) ----- */
+    #page-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0f1a24;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .loader-content {
+      text-align: center;
+      color: white;
+    }
+    .loader-content i {
+      font-size: 4rem;
+      color: #c7a234;
+      margin-bottom: 1rem;
+      animation: spin 1.2s linear infinite;
+    }
+    .loader-content p {
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 4px;
+      margin-top: 10px;
+      color: #e0e7ed;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .loader-hidden {
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
+
+    /* ----- MAIN STYLES (consistent with redesigned brand) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background-color: #f9fafc;
+      color: #1e2b37;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    /* navigation — identical to homepage/about */
+    nav {
+      background: #0f1a24;
+      color: #fff;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      border-bottom: 3px solid #c7a234;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: white;
+      line-height: 1.2;
+    }
+    .logo span {
+      color: #c7a234;
+      font-weight: 300;
+      font-size: 1rem;
+      display: block;
+      letter-spacing: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-links a {
+      color: #f0f3f7;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: 0.2s;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 4px;
+    }
+    .nav-links a:hover {
+      border-bottom-color: #c7a234;
+      color: white;
+    }
+
+    /* page hero — services version */
+    .page-hero {
+      background: linear-gradient(80deg, rgba(0, 20, 30, 0.85), rgba(0, 40, 50, 0.7)), 
+                  url('https://images.unsplash.com/photo-1503387762-592deb58ef4e') center/cover fixed;
+      color: white;
+      padding: 100px 30px;
+      text-align: center;
+      margin: 0;
+      border-radius: 0 0 40px 40px;
+    }
+    .page-hero h1 {
+      font-size: 3.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 15px;
+      text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .page-hero p {
+      font-size: 1.6rem;
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* main content area */
+    .services-container {
+      max-width: 1280px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* section title with underline */
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #0d2b3e;
+      margin-bottom: 1.2rem;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 90px;
+      height: 4px;
+      background: #c7a234;
+      border-radius: 4px;
+      margin: 12px 0 0;
+    }
+
+    /* services grid — enhanced cards with icons & hover effect */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .service-card {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 28px;
+      box-shadow: 0 12px 30px -12px rgba(0,32,64,0.15);
+      border: 1px solid #eef2f6;
+      transition: all 0.25s ease;
+      text-align: left;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: #c7a23460;
+      box-shadow: 0 30px 40px -18px #0b2c3b;
+    }
+
+    .service-card i {
+      font-size: 3rem;
+      color: #c7a234;
+      margin-bottom: 25px;
+    }
+
+    .service-card h3 {
+      font-size: 1.9rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #0f2a36;
+    }
+
+    .service-card p {
+      color: #3f5562;
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+
+    /* optional extra description / CTA block */
+    .service-cta {
+      margin-top: 60px;
+      background: #ecf3f7;
+      border-radius: 48px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 10px 25px -12px #10262e;
+    }
+    .service-cta h3 {
+      font-size: 2rem;
+      color: #0f2a36;
+    }
+    .service-cta p {
+      font-size: 1.3rem;
+      margin: 15px 0 20px;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #c7a234;
+      padding: 14px 40px;
+      font-size: 1.3rem;
+      border-radius: 60px;
+      font-weight: 600;
+      color: #0f1a24;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-outline:hover {
+      background: #c7a234;
+      color: #0f1a24;
+      border-color: #c7a234;
+    }
+
+    /* footer same as homepage */
+    footer {
+      background: #0b1a21;
+      color: #b0c4d4;
+      text-align: center;
+      padding: 35px 20px;
+      font-size: 1.1rem;
+      border-top: 1px solid #2a4758;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 700px) {
+      nav {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 25px;
+      }
+      .nav-links {
+        gap: 1.2rem;
+      }
+      .page-hero h1 {
+        font-size: 2.5rem;
+      }
+      .page-hero p {
+        font-size: 1.3rem;
+      }
+      .service-card {
+        padding: 30px 20px;
+      }
+      .service-cta {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADER (consistent with whole site) -->
+  <div id="page-loader">
+    <div class="loader-content">
+      <i class="fas fa-cog"></i>
+      <p>THALAMI CIVILS</p>
+      <div style="font-size:1rem; margin-top: 10px; color:#c7a234;">loading...</div>
+    </div>
+  </div>
+
+  <!-- NAVBAR (matching homepage & about) -->
+  <nav>
+    <div class="logo">
+      THALAMI CIVILS
+      <span>ENGINEERED EXCELLENCE</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO for services page -->
+  <section class="page-hero">
+    <h1>Our Services</h1>
+    <p>Civil Engineering & Construction Solutions</p>
+  </section>
+
+  <!-- SERVICES GRID (redesigned with icons & better copy) -->
+  <div class="services-container">
+    <!-- optional title within container (could also omit but nice) -->
+    <h2 class="section-title">What we offer</h2>
+
+    <div class="services-grid">
+      <!-- Road Construction -->
+      <div class="service-card">
+        <i class="fas fa-road"></i>
+        <h3>Road Construction & Rehabilitation</h3>
+        <p>Construction, upgrading and maintenance of road infrastructure — from national highways to residential streets.</p>
+      </div>
+      <!-- Earthworks -->
+      <div class="service-card">
+        <i class="fas fa-mountain"></i>
+        <h3>Earthworks</h3>
+        <p>Bulk excavation, precision grading and land preparation for commercial, residential and mining projects.</p>
+      </div>
+      <!-- Stormwater -->
+      <div class="service-card">
+        <i class="fas fa-water"></i>
+        <h3>Stormwater & Drainage</h3>
+        <p>Design and installation of culverts, stormwater attenuation ponds and drainage systems to manage flow.</p>
+      </div>
+      <!-- Infrastructure Development -->
+      <div class="service-card">
+        <i class="fas fa-city"></i>
+        <h3>Infrastructure Development</h3>
+        <p>Complete civil infrastructure solutions for communities: water reticulation, sewer networks and utilities.</p>
+      </div>
+      <!-- Plant Hire -->
+      <div class="service-card">
+        <i class="fas fa-digging"></i>
+        <h3>Plant Hire</h3>
+        <p>Modern fleet of heavy machinery including excavators, graders, compactors and tipper trucks for any project scale.</p>
+      </div>
+      <!-- Additional service (Project Management) to round out grid -->
+      <div class="service-card">
+        <i class="fas fa-clipboard-list"></i>
+        <h3>Project Management</h3>
+        <p>End‑to‑end planning, cost control, quality assurance and site supervision — delivered by seasoned engineers.</p>
+      </div>
+    </div>
+
+    <!-- extra CTA / credibility block (like homepage) -->
+    <div class="service-cta">
+      <h3><i class="fas fa-helmet-safety" style="color:#c7a234; margin-right: 10px;"></i> Need a tailored solution?</h3>
+      <p>Our team adapts to project-specific requirements — from small earthworks to multi-year infrastructure programs.</p>
+      <button class="btn-outline"><i class="fas fa-calendar-check" style="margin-right: 10px;"></i>Request consultation</button>
+    </div>
+  </div>
+
+  <!-- FOOTER (identical to homepage) -->
+  <footer>
+    <p>© 2026 Thalami Civils — All Rights Reserved. A black‑owned, level 1 contributor.</p>
+    <p style="margin-top: 15px; font-size: 0.95rem;">
+      <i class="fab fa-linkedin" style="margin: 0 10px; color:#c7a234;"></i>    
+      <i class="fab fa-twitter" style="margin: 0 10px; color:#c7a234;"></i>
+      <i class="fab fa-facebook" style="margin: 0 10px; color:#c7a234;"></i>
+    </p>
+  </footer>
+
+  <!-- loader hide script (same as before) -->
+  <script>
+    (function() {
+      window.addEventListener('load', function() {
+        const loader = document.getElementById('page-loader');
+        if (loader) {
+          setTimeout(() => {
+            loader.classList.add('loader-hidden');
+          }, 400);
+        }
+      });
+      if (document.readyState === 'complete') {
+        const loader = document.getElementById('page-loader');
+        if (loader) loader.classList.add('loader-hidden');
+      }
+    })();
+  </script>
+</body>
+</html>
